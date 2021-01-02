@@ -1,18 +1,18 @@
 const express = require("express");
-const router = express();
+const app = express();
 
-const apiRoutes = require("./routes/apiRoutes")(router);
-const htmlRoutes = require("./routes/htmlRoutes")(router);
+const apiRoutes = require("./routes/apiRoutes");
+const htmlRoutes = require("./routes/htmlRoutes");
 
 const PORT = process.env.PORT || 8000;
 
-router.use(express.urlencoded({ extended: true }));
-router.use(express.json());
-router.use(express.static('public'));
-router.use('/api', apiRoutes)
-router.use('/', htmlRoutes)
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static('public'));
+app.use('/api', apiRoutes)
+app.use('/', htmlRoutes)
 
 
-router.listen(PORT, () => 
+app.listen(PORT, () => 
 console.log(`App listening on PORT: ${PORT}`));
 
