@@ -1,8 +1,8 @@
 const express = require("express");
-const apiRoutes = require('./routes/apiRoutes')
-const htmlRoutes = require('./routes/htmlRoutes')
-
 const app = express();
+
+const apiRoutes = require("./routes/apiRoutes")(app);
+const htmlRoutes = require("./routes/htmlRoutes")(app);
 
 const PORT = process.env.PORT || 8000;
 
@@ -13,5 +13,6 @@ app.use('/api', apiRoutes)
 app.use('/', htmlRoutes)
 
 
-app.listen(PORT, () => console.log(`App listening on PORT: ${PORT}`));
+app.listen(PORT, () => 
+console.log(`App listening on PORT: ${PORT}`));
 
