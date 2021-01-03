@@ -26,13 +26,13 @@ router.post("/notes", function (req, res) {
             res.json(newBody);
             console.log(req.body)
 
-            fs.writeFile("db.json", data, (err) => { 
+            fs.writeFile("./Develop/db/db.json", JSON.stringify(stringedData), (err) => { 
                 if (err) 
                   console.log(err); 
                 else { 
                   console.log("File written successfully\n"); 
                   console.log("The written has the following contents:"); 
-                  console.log(fs.readFileSync("db.json", "utf8")); 
+                  console.log(fs.readFileSync("./Develop/db/db.json", "utf8")); 
                 } 
               }); 
         })
