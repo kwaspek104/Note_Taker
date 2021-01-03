@@ -6,31 +6,39 @@ const path = require('path');
 const readFileasync = util.promisify(fs.readFile);
 
 
-// router.get('/notes', function(req, res) {
-//     res.sendFile(path.join(__dirname, '../public/notes.html'));
-//   });
+router.get("/notes", function (req, res) {
+    readFileasync("./Develop/db/db.json", "utf8").then(
+        data => {
+            console.log(data)
+            res.send(data)
+        })
+});
 
-//   router.get('*', function(req, res) {
-//     res.sendFile(path.join(__dirname, '../public/index.html'));
-// });
+router.post("/notes", function (req, res) {
+    console.log("POST-ROUTE HAS BEEN HIT")
+    readFileasync("./Develop/db/db.json", "utf8").then(
+        function (data) {
+            console.log(data);
+            var newBody = req.body;
+            var stringedData = JSON.parse(data)
 
-    router.get("/notes", function (req, res) {
-    readFileasync("../Develop/db/db.json", "utf8").then(data)
-    });
+            stringedData.push(req.body);
+            res.json(newBody);
+            console.log(req.body)
 
-    router.post("/notes", function(req, res) {
-        // POST /api/notes - Should receive a new note to save 
-        // on the request body, add it to the db.json file, 
-        // and then return the new note to the client.
-        console.log("POST-ROUTE HAS BEEN HIT")
-        var newBody = req.body
-        data.push(req.body);
-        res.json(newBody);
-        console.log(req.body)
-    });
-    
-    //then export it
-    module.exports = router
+            fs.writeFile("db.json", data, (err) => { 
+                if (err) 
+                  console.log(err); 
+                else { 
+                  console.log("File written successfully\n"); 
+                  console.log("The written has the following contents:"); 
+                  console.log(fs.readFileSync("db.json", "utf8")); 
+                } 
+              }); 
+        })
+})
+
+//then export it
+module.exports = router
 
 
-   
